@@ -1,0 +1,623 @@
+/* =============================================================
+   CONVITE DE ANIVERSÁRIO — GERALDO BET — 60 ANOS
+   style.css
+   =============================================================
+
+   ╔══════════════════════════════════════════════════════════╗
+   ║         🎨 PALETA DE CORES — ALTERE AQUI               ║
+   ╠══════════════════════════════════════════════════════════╣
+   ║  Para mudar o tema completo da página, basta editar    ║
+   ║  os valores hexadecimais abaixo, dentro de :root {}.   ║
+   ║                                                        ║
+   ║  --cor-fundo        → Fundo geral da página            ║
+   ║  --cor-fundo-alt    → Fundo alternativo (seção evento) ║
+   ║  --cor-texto        → Cor principal do texto           ║
+   ║  --cor-texto-suave  → Texto secundário / legendas      ║
+   ║  --cor-destaque     → Dourado / cor de destaque        ║
+   ║  --cor-destaque-rgb → Mesmo dourado em formato RGB     ║
+   ║                       (usado para transparências)      ║
+   ║  --cor-botao        → Fundo do botão de confirmação    ║
+   ║  --cor-botao-hover  → Fundo do botão (hover)          ║
+   ║  --cor-botao-texto  → Texto do botão                  ║
+   ║  --cor-hero-overlay → Cor do overlay do hero          ║
+   ║  --cor-divisor      → Cor das linhas decorativas      ║
+   ║  --cor-card-bg      → Fundo das fotos/legendas        ║
+   ╚══════════════════════════════════════════════════════════╝
+*/
+
+:root {
+  /* ── ALTERE APENAS OS VALORES APÓS O ":" ── */
+  --cor-fundo:        #f5f0e8;
+  --cor-fundo-alt:    #ede6d8;
+  --cor-texto:        #2a1f0f;
+  --cor-texto-suave:  #7a6a52;
+  --cor-destaque:     #9a6f2a;
+  --cor-destaque-rgb: 154, 111, 42;
+  --cor-botao:        #9a6f2a;
+  --cor-botao-hover:  #b8863a;
+  --cor-botao-texto:  #ffffff;
+  --cor-hero-overlay: rgba(20, 12, 4, 0.55);
+  --cor-divisor:      #9a6f2a;
+  --cor-card-bg:      #ede3d0;
+
+  /* ── Tipografia & Espaçamento (não precisa alterar) ── */
+  --fonte-titulo:   'Playfair Display', Georgia, serif;
+  --fonte-corpo:    'Lato', system-ui, sans-serif;
+  --raio-card:      12px;
+  --transicao:      0.35s ease;
+}
+
+/* =============================================================
+   RESET & BASE
+   ============================================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: var(--fonte-corpo);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* =============================================================
+   SCROLL REVEAL — Fade-in ao rolar
+   ============================================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =============================================================
+   HERO
+   ============================================================= */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  overflow: hidden;
+  background-image: url('img/foto geraldo.jpeg');
+  background-size: cover;
+  background-position: center top;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--cor-hero-overlay);
+  z-index: 1;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+}
+
+.hero__pre {
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cor-destaque);
+  margin-bottom: 1rem;
+}
+
+.hero__title {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(2.8rem, 10vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 1.25rem;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.6);
+}
+
+.hero__title span {
+  color: var(--cor-destaque);
+  font-style: italic;
+}
+
+.hero__sub {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.05em;
+}
+
+.btn--hero {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.85rem 2.2rem;
+  border: 2px solid var(--cor-destaque);
+  border-radius: 50px;
+  color: var(--cor-destaque);
+  font-family: var(--fonte-corpo);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background var(--transicao), color var(--transicao);
+  backdrop-filter: blur(4px);
+}
+
+.btn--hero:hover,
+.btn--hero:focus {
+  background: var(--cor-destaque);
+  color: var(--cor-fundo);
+}
+
+/* Seta de scroll no hero */
+.hero__scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.hero__scroll-hint span {
+  display: block;
+  width: 22px;
+  height: 36px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-radius: 20px;
+  position: relative;
+}
+
+.hero__scroll-hint span::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 8px;
+  background: var(--cor-destaque);
+  border-radius: 4px;
+  animation: scrollBounce 1.8s ease-in-out infinite;
+}
+
+.hero__scroll-label {
+  margin-top: 0.6rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+  animation: fadeInLabel 0.6s ease 0.3s both;
+}
+
+@keyframes fadeInLabel {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollBounce {
+  0%, 100% { top: 6px; opacity: 1; }
+  80%       { top: 18px; opacity: 0; }
+}
+
+/* =============================================================
+   STORY (HISTÓRIA)
+   ============================================================= */
+.story {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 3rem 1.25rem 2rem;
+}
+
+/* --- Bloco de texto --- */
+.story__block {
+  padding: 1rem 0 1rem;
+}
+
+.story__text {
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
+  color: var(--cor-texto);
+  margin-bottom: 1.2rem;
+  text-align: justify;
+}
+
+.story__text strong {
+  color: var(--cor-destaque);
+  font-weight: 700;
+}
+
+.story__text--highlight {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.1rem, 2.8vw, 1.3rem);
+  font-style: italic;
+  text-align: center;
+  border-left: 3px solid var(--cor-destaque);
+  padding: 0.75rem 1.25rem;
+  backdrop-filter: blur(2px);
+  background: rgba(var(--cor-destaque-rgb), 0.07);
+  border-radius: 0 8px 8px 0;
+}
+
+.story__block--closing {
+  padding: 2rem 0 3rem;
+  text-align: center;
+}
+
+.story__text--closing {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.15rem, 3vw, 1.4rem);
+  font-style: italic;
+  color: var(--cor-destaque);
+  text-align: center;
+}
+
+/* --- Fotos --- */
+.story__photos {
+  padding: 0.75rem 0 1.5rem;
+}
+
+/* Duo: duas fotos lado a lado */
+.story__photos--duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Single: foto centralizada */
+.story__photos--single {
+  display: flex;
+  justify-content: center;
+}
+
+.photo-card {
+  background: var(--cor-card-bg);
+  border-radius: var(--raio-card);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+  transition: transform var(--transicao), box-shadow var(--transicao);
+}
+
+.photo-card:hover {
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: 0 16px 48px rgba(var(--cor-destaque-rgb), 0.2);
+}
+
+.photo-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Força exibir o topo da imagem (evita cabeças cortadas) */
+.photo-card img.img--top {
+  object-position: top;
+}
+
+.photo-card--wide {
+  width: 100%;
+  max-width: 560px;
+}
+
+.photo-card--wide img {
+  height: auto;
+  object-fit: fill;
+}
+
+
+/* --- Divisor decorativo --- */
+.divider {
+  text-align: center;
+  padding: 2rem 0 1rem;
+  color: var(--cor-destaque);
+  font-size: 1.8rem;
+  opacity: 0.6;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  width: 80px;
+  height: 1px;
+  background: var(--cor-divisor);
+  margin: 0 1rem;
+  opacity: 0.5;
+}
+
+/* =============================================================
+   EVENTO (SEÇÃO DE DETALHES)
+   ============================================================= */
+.event {
+  background-color: var(--cor-fundo-alt);
+  border-top: 1px solid rgba(var(--cor-destaque-rgb), 0.25);
+  padding: 4rem 1.25rem 5rem;
+}
+
+.event__inner {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.event__badge {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.1); }
+}
+
+.event__title {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(2rem, 7vw, 3rem);
+  color: var(--cor-destaque);
+  margin-bottom: 0.5rem;
+}
+
+.event__subtitle {
+  font-size: 1rem;
+  color: var(--cor-texto-suave);
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.05em;
+}
+
+.event__details {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.event__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: rgba(var(--cor-destaque-rgb), 0.08);
+  border: 1px solid rgba(var(--cor-destaque-rgb), 0.2);
+  border-radius: var(--raio-card);
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+}
+
+.event__icon {
+  font-size: 1.75rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.event__item strong {
+  display: block;
+  color: var(--cor-destaque);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.25rem;
+}
+
+.event__item p {
+  color: var(--cor-texto);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.event__address {
+  font-size: 0.875rem !important;
+  color: var(--cor-texto-suave) !important;
+}
+
+.event__maps-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--cor-destaque);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: opacity var(--transicao);
+}
+
+.event__maps-link:hover {
+  opacity: 0.75;
+  text-decoration: underline;
+}
+
+.event__phrase {
+  font-family: var(--fonte-titulo);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--cor-texto);
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+}
+
+/* Botão de RSVP */
+.btn--rsvp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2.5rem;
+  background: var(--cor-botao);
+  color: var(--cor-botao-texto);
+  font-family: var(--fonte-corpo);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  border-radius: 50px;
+  box-shadow: 0 8px 32px rgba(var(--cor-destaque-rgb), 0.35);
+  transition: background var(--transicao), transform var(--transicao), box-shadow var(--transicao);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn--rsvp::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background 0.2s;
+}
+
+.btn--rsvp:hover {
+  background: var(--cor-botao-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 48px rgba(var(--cor-destaque-rgb), 0.5);
+}
+
+.btn--rsvp:hover::after {
+  background: rgba(255,255,255,0.07);
+}
+
+.btn--rsvp:active {
+  transform: translateY(0);
+}
+
+.event__rsvp-hint {
+  margin-top: 0.85rem;
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+  letter-spacing: 0.05em;
+}
+
+/* =============================================================
+   RODAPÉ
+   ============================================================= */
+.footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: var(--cor-fundo);
+  border-top: 1px solid rgba(var(--cor-destaque-rgb), 0.1);
+  font-size: 0.875rem;
+  color: var(--cor-texto-suave);
+  line-height: 2;
+}
+
+.footer__year {
+  font-family: var(--fonte-titulo);
+  font-size: 1.1rem;
+  color: var(--cor-destaque);
+  opacity: 0.5;
+}
+
+.footer__dev {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--cor-texto-suave);
+  opacity: 0.7;
+}
+
+.footer__dev-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--cor-destaque);
+  text-decoration: none;
+  font-weight: 700;
+  transition: opacity var(--transicao);
+}
+
+.footer__dev-link:hover {
+  opacity: 0.75;
+}
+
+.footer__linkedin-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+/* =============================================================
+   RESPONSIVIDADE
+   ============================================================= */
+
+/* ── Telas pequenas (< 480px) ── */
+@media (max-width: 480px) {
+  .story__photos--duo {
+    grid-template-columns: 1fr;
+  }
+
+  .photo-card img {
+    height: 200px;
+  }
+
+  .photo-card--wide img {
+    height: auto;
+  }
+
+  .event__item {
+    flex-direction: column;
+  }
+
+  .btn--rsvp {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .divider::before,
+  .divider::after {
+    width: 40px;
+  }
+}
+
+/* ── Telas médias (481px – 768px) ── */
+@media (min-width: 481px) and (max-width: 768px) {
+  .photo-card img {
+    height: 240px;
+  }
+
+  .photo-card--wide img {
+    height: auto;
+  }
+}
+
+/* ── Telas grandes (> 768px) ── */
+@media (min-width: 769px) {
+  .story {
+    padding: 4rem 2rem 2rem;
+  }
+
+  .photo-card img {
+    height: 280px;
+  }
+
+  .photo-card--wide img {
+    height: auto;
+  }
+
+  .event__details {
+    grid-template-columns: 1fr;
+  }
+}
